@@ -1,11 +1,14 @@
 import json
 
+from cndi.env import loadEnvFromFile
+
 from elfie.doccano import transformToDoccanoIntentClassificationAndSlotFilling, downloadProjectData
 from elfie.yaml_generator.domain import RasaDomain
 from elfie.yaml_generator.nlu import RasaNLU
 from elfie.yaml_generator.tree import IntentTree
 
 if __name__ == '__main__':
+    loadEnvFromFile("../resources/application.yml")
     intentTree = IntentTree()
     intentTree.loadIntentTree("../resources/question_tree.yml")
     intentTree.loadIntentTree("../resources/greeting_tree.yml")
