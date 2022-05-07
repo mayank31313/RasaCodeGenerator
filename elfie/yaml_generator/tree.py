@@ -44,7 +44,6 @@ class IntentTree:
                 self.intentTree[intent] = dict(intent=intent, parentIntent=None, priority=1000)
 
             intents = sorted(intents, key=lambda intent: self.intentTree[intent]['priority'], reverse=True)
-            print(intents)
             removing_intents = set()
             for intent in intents:
                 removing_intents.update(self.getParentIntentHierarchy(intent))

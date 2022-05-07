@@ -8,13 +8,13 @@ from elfie.yaml_generator.nlu import RasaNLU
 from elfie.yaml_generator.tree import IntentTree
 
 if __name__ == '__main__':
-    loadEnvFromFile("../resources/application.yml")
+    loadEnvFromFile("resources/application.yml")
     intentTree = IntentTree()
-    intentTree.loadIntentTree("../resources/question_tree.yml")
-    intentTree.loadIntentTree("../resources/greeting_tree.yml")
-    intentTree.loadIntentTree("../resources/command_tree.yml")
-    intentTree.loadIntentTree("../resources/copter_tree.yml")
-    intentTree.loadIntentTree("../resources/no_parent_tree.yml")
+    intentTree.loadIntentTree("resources/question_tree.yml")
+    intentTree.loadIntentTree("resources/greeting_tree.yml")
+    intentTree.loadIntentTree("resources/command_tree.yml")
+    intentTree.loadIntentTree("resources/copter_tree.yml")
+    intentTree.loadIntentTree("resources/no_parent_tree.yml")
 
 
     intentTree.computePriorityForIntentTree()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     text_examples = list(map(lambda example: example['text'],doccanoExamples.values()))
 
-    with open("output.json", "w") as stream:
+    with open("elfie/output.json", "w") as stream:
         for example_text, labels in examples.items():
             if example_text in text_examples:
                 continue

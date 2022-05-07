@@ -19,7 +19,9 @@ def downloadProjectData(project_id):
         data = doccano_client.get(url)
         url = data['next']
         for result in data['results']:
-            EXAMPLES[result['id']] = dict(text=result['text'])
+            EXAMPLES[result['id']] = dict(text=result['text'],
+                                          is_confirmed=result['is_confirmed']
+                                          )
 
     CATEGORIES = dict(map(lambda category: (category['id'], category['text']),doccano_client.get(f"v1/projects/{project_id}/category-types")))
     SPANS = dict(map(lambda span: (span['id'], span['text']), doccano_client.get(f"/v1/projects/{project_id}/span-types")))
@@ -43,5 +45,6 @@ def downloadProjectData(project_id):
                                     uncleanedText = uncleanedText,
                                     entities=entities,
                                     categories=list(map(lambda category: CATEGORIES[category['label']], categories_linked))
+
                                 )
     return EXAMPLES
