@@ -15,8 +15,7 @@ setuptools.setup(
      long_description_content_type="text/markdown",
      url="https://github.com/mayank31313/ior-python",
      packages=setuptools.find_packages(),
-     # packages=['elfie'],
-     keywords=['elfie','rasa','conversional_bots', 'control_net'],
+     keywords=['elfie','rasa','conversional_bots', 'control_net', 'rcn'],
      classifiers=[
          "Programming Language :: Python :: 3",
          "Operating System :: OS Independent",

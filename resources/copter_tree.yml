@@ -1,0 +1,18 @@
+- intent: copter
+  parentIntent: null
+- intent: copter_take_control
+  parentIntent: copter
+  examples:
+    - override manual control
+    - automate copter controls
+- intent: copter_release_control
+  parentIntent: copter
+  examples:
+    - release copter control
+    - I am overriding to manual control
+- intent: copter_show_realtime_stream
+  parentIntent: copter
+  examples:
+    - show me the live view of copter
+    - show me the fpv view
+    - whats the copter seeing

@@ -1,0 +1,26 @@
+- intent: command
+  parentIntent: null
+- intent: do_stuff
+  parentIntent: command
+- intent: release_control
+  parentIntent: command
+  examples:
+    - release autonomous control
+    - I am manually controlling it
+    - I will do it myself
+    - I am overriding manual control
+- intent: take_control
+  parentIntent: command
+  examples:
+    - you can take control now
+    - override manual control
+- intent: add_video_filter
+  parentIntent: do_stuff
+  examples:
+    - add depth map to the video pipeline
+- intent: remove_video_filter
+  parentIntent: do_stuff
+  examples:
+    - remove depth map to the video pipeline
+    - delete video pipeline
+    - clear video pipeline
