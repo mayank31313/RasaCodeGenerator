@@ -13,14 +13,9 @@ import argparse
 if __name__ == '__main__':
     args_parser = argparse.ArgumentParser()
     args_parser.add_argument("generate-sources", type=bool, default=False, nargs='?')
-    args_parser.add_argument("--config", default="resources/application.yml")
+    args_parser.add_argument("--config", default="resources/application.yml", help="External Configuration for generator default path points to 'resources/application.yml'")
 
     args = args_parser.parse_args()
-
-    # if args.help:
-    #     args_parser.print_help()
-    #     exit(0)
-
     generateSources = args.__getattribute__('generate-sources')
 
     loadEnvFromFile(args.config)
