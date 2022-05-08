@@ -1,6 +1,0 @@
-- intent: affirm
-  parentIntent: null
-- intent: deny
-  parentIntent: null
-- intent: goodbye
-  parentIntent: null

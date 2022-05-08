@@ -1,8 +1,0 @@
-- intent: greet
-  parentIntent: null
-- intent: evening
-  parentIntent: greet
-- intent: morning
-  parentIntent: greet
-- intent: afternoon
-  parentIntent: greet

@@ -1,9 +1,0 @@
-build
-dist
-elfie.egg-info
-.idea/CodeGenerator.iml
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-/resources/**
