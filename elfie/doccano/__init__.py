@@ -45,6 +45,5 @@ def downloadProjectData(project_id):
                                     uncleanedText = uncleanedText,
                                     entities=entities,
                                     categories=list(map(lambda category: CATEGORIES[category['label']], categories_linked))
-
                                 )
     return EXAMPLES

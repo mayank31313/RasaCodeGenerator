@@ -9,8 +9,8 @@ from yaml import dump,load, Loader, Dumper
 from elfie.code_generator import *
 import os
 
-from manager.consts.slots import REQUIRED_SLOTS
-
+# Default Slots
+REQUIRED_SLOTS="required_slots"
 OUTPUT_DOMAIN_FILE = None
 
 importStatements = [

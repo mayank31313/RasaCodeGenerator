@@ -118,7 +118,7 @@ class RasaNLU:
                    nlu=list(
                        map(lambda intent: dict(
                            intent=intent,
-                           examples="".join(map(lambda text: f"- {text}", nlu[intent]))
+                           examples="".join(map(lambda text: f" - {text}", nlu[intent])).strip()
                        ), nlu)
                    )
                 )

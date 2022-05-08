@@ -69,3 +69,7 @@ class ModuleGenerator:
             contents.append(content.__str__(declareIndent))
 
         return ''.join(contents)
+
+def writeToPythonFile(path, content):
+    with open(path, "w") as file:
+        file.write(content)
