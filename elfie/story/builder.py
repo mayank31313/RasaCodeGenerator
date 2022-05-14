@@ -74,7 +74,7 @@ class RasaStories:
         return rasaStories
 
     def exportAsYaml(self, path):
-        stories = list(map(lambda story: story.as_dict(), self.stories.copy()))
+        stories = list(dict(map(lambda story: (hash(story), story.as_dict()), self.stories.copy())).values())
         saveyaml(path, dict(
             version=self.version,
             stories=stories

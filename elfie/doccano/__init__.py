@@ -7,29 +7,51 @@ def transformToDoccanoIntentClassificationAndSlotFilling(record: dict):
                 entities=list(map(lambda entity: [entity['start'],entity['end'],entity['entityType']], record['entities'])),
                 cats=record['label'])
 
+
+class RasaDoccanoClient:
+    def __init__(self):
+        doccanoUrl = getContextEnvironment("rcn.doccano.url")
+        doccanoUserName = getContextEnvironment("rcn.doccano.username")
+        doccanoPassword = getContextEnvironment("rcn.doccano.password")
+
+        self.doccanoClient = DoccanoClient(doccanoUrl, doccanoUserName, doccanoPassword)
+
+    def getAllExamples(self, project_id):
+        EXAMPLES = dict()
+        url = f"/v1/projects/{project_id}/examples"
+        while url is not None:
+            data = self.doccanoClient.get(url)
+            url = data['next']
+            for result in data['results']:
+                EXAMPLES[result['id']] = dict(text=result['text'],
+                                              is_confirmed=result['is_confirmed']
+                                              )
+
+        return EXAMPLES
+
+    def getForms(self, project_id):
+        return list(filter(lambda x: x.endswith('form'), self.getCategories(project_id).values()))
+
+    def getCategories(self,project_id):
+        return dict(map(lambda category: (category['id'], category['text']),
+                 self.doccanoClient.get(f"v1/projects/{project_id}/category-types")))
+
+    def getSpans(self, project_id):
+        return dict(map(lambda span: (span['id'], span['text']),
+                        self.doccanoClient.get(f"/v1/projects/{project_id}/span-types")))
+
 def downloadProjectData(project_id):
-    EXAMPLES = dict()
-    doccanoUrl = getContextEnvironment("rcn.doccano.url")
-    doccanoUserName = getContextEnvironment("rcn.doccano.username")
-    doccanoPassword = getContextEnvironment("rcn.doccano.password")
+    rasaDoccanoClient = RasaDoccanoClient()
+    EXAMPLES = rasaDoccanoClient.getAllExamples(project_id)
 
-    doccano_client = DoccanoClient(doccanoUrl, doccanoUserName, doccanoPassword)
-    url = f"/v1/projects/{project_id}/examples"
-    while url is not None:
-        data = doccano_client.get(url)
-        url = data['next']
-        for result in data['results']:
-            EXAMPLES[result['id']] = dict(text=result['text'],
-                                          is_confirmed=result['is_confirmed']
-                                          )
+    CATEGORIES = rasaDoccanoClient.getCategories(project_id)
 
-    CATEGORIES = dict(map(lambda category: (category['id'], category['text']),doccano_client.get(f"v1/projects/{project_id}/category-types")))
-    SPANS = dict(map(lambda span: (span['id'], span['text']), doccano_client.get(f"/v1/projects/{project_id}/span-types")))
+    SPANS = rasaDoccanoClient.getSpans(project_id)
 
     for example_id in EXAMPLES:
         url = f"v1/projects/{project_id}/examples/{example_id}/spans"
-        spans = doccano_client.get(url)
-        categories_linked = doccano_client.get(f"v1/projects/{project_id}/examples/{example_id}/categories")
+        spans = rasaDoccanoClient.doccanoClient.get(url)
+        categories_linked = rasaDoccanoClient.doccanoClient.get(f"v1/projects/{project_id}/examples/{example_id}/categories")
         text = EXAMPLES[example_id]['text']
 
         entities = list(map(lambda span: dict(
