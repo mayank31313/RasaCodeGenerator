@@ -44,7 +44,7 @@ class ClassGenerator:
 
     def __str__(self, declareIndent=4):
         contents = list()
-        contents.append(f"class {self.className}({','.join(self.superClass)}):\n")
+        contents.append(f"class {self.className.replace('.', '__')}({','.join(self.superClass)}):\n")
         for function in self.attributes:
             contents.append(" " * declareIndent + function.__str__(declareIndent=declareIndent+4, prependParams=["self"]) + "\n")
 

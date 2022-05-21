@@ -26,7 +26,7 @@ if __name__ == '__main__':
     doccanoExamples = downloadProjectData(projectId)
     doccanoRasaNlu = RasaNLU.readFromDoccanoData(doccanoExamples)
 
-    intents = set(map(lambda intent: '.'.join(intent.label), doccanoRasaNlu.intents))
+    intents = set(map(lambda intent: '.'.join(sorted(intent.label)), doccanoRasaNlu.intents))
     entities = set()
     for intent in doccanoRasaNlu.intents:
         for entity in intent.entities:
